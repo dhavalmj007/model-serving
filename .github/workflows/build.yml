@@ -26,4 +26,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: user/basemodel:latest
+          tags: dhavalmj007/model-serving:latest
