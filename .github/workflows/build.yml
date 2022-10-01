@@ -27,3 +27,12 @@ jobs:
         with:
           push: true
           tags: dhavalmj007/model-serving:latest
+      -
+        name: Authenticate and set context
+        uses: redhat-actions/oc-login@v1
+        with:
+          openshift_server_url: ${{ env.OPENSHIFT_SERVER_URL }}
+          openshift_token: ${{ env.OPENSHIFT_TOKEN }}
+      -
+        name: Deploy to openshift
+        run: oc apply -f deploy-to-openshift.yaml
