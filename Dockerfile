@@ -4,7 +4,7 @@ WORKDIR /var/model
 EXPOSE 4010
 
 COPY requirements.txt           requirements.txt
-RUN pip install -r requirements.txt
+RUN --mount=type=cache,target=/root/.cache/pip/ pip install -r requirements.txt
 
 COPY src                            src
 COPY tests                          tests
