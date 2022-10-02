@@ -39,7 +39,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout main
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          ref: model # branch
       -
         name: Authenticate and set context
         uses: redhat-actions/oc-login@v1
