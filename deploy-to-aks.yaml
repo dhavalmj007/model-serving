@@ -29,7 +29,6 @@ spec:
       containers:
         - name: ml-model
           image: dhavalmj007/model-serving:latest
-          imagePullPolicy: Always
           resources:
             requests:
               memory: "256Mi"
@@ -39,14 +38,23 @@ spec:
               cpu: "500m"
           ports:
             - containerPort: 4010
+
 ---
-apiVersion: route.openshift.io/v1
-kind: Route
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
   name: ml-model
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
 spec:
-  port:
-    targetPort: 4010
-  to:
-    kind: Service
-    name: ml-model
+  rules:
+  - host: ml-model.a355897ccb3d4de3bed2.centralindia.aksapp.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: ml-model
+            port:
+              number: 80
