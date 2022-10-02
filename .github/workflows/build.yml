@@ -35,6 +35,7 @@ jobs:
           push: true
           tags: dhavalmj007/model-serving:latest
   openshift:
+    needs: docker
     runs-on: ubuntu-latest
     steps:
       - name: Checkout main
