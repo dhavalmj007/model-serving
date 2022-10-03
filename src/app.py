@@ -5,7 +5,7 @@ from src.routers import healthcheck_router, predict_router
 
 
 app = FastAPI(
-    title='Base Models Serving',
+    title='Base Model Serving',
     docs_url=DOCS_ROUTE,
     openapi_url=DOCS_ROUTE + '/openapi.json'
 )
