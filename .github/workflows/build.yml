@@ -61,7 +61,7 @@ jobs:
           openshift_server_url: ${{ secrets.OPENSHIFT_SERVER_URL }}
           openshift_token: ${{ secrets.OPENSHIFT_TOKEN }}
       - name: Delete old deployments
-        run: oc delete -f deploy-to-openshift.yaml
+        run: oc delete -f deploy-to-openshift.yaml --ignore-not-found=True
       -
         name: Deploy to openshift
         run: oc apply -f deploy-to-openshift.yaml
