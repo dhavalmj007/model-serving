@@ -7,7 +7,8 @@ def main():
         app,
         host='0.0.0.0',
         port=4010,
-        http='h11'
+        http='h11',
+        debug=True
     )
 
 
