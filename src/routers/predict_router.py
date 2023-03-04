@@ -6,13 +6,13 @@ from src.trained_models.xgboost_model import XGBoost_Model
 
 router = APIRouter()
 
-# initilize the model
+# initialize the model
 xgboost_model = XGBoost_Model()
 
 
 @router.post(PREDICTION_ROUTE)
 def predict(body: Request) -> ReturnModel:
-    """"
+    """
     Simple XGBoost model prediction API
     :param body: input features
 

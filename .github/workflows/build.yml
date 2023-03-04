@@ -46,22 +46,22 @@ jobs:
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
-  openshift:
-    needs: docker
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout main
-        uses: actions/checkout@v3
-        with:
-          ref: model # branch
-      -
-        name: Authenticate and set context
-        uses: redhat-actions/oc-login@v1
-        with:
-          openshift_server_url: ${{ secrets.OPENSHIFT_SERVER_URL }}
-          openshift_token: ${{ secrets.OPENSHIFT_TOKEN }}
-      - name: Delete old deployments
-        run: oc delete -f deploy-to-openshift.yaml --ignore-not-found=True
-      -
-        name: Deploy to openshift
-        run: oc apply -f deploy-to-openshift.yaml
+#  openshift:
+#    needs: docker
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout main
+#        uses: actions/checkout@v3
+#        with:
+#          ref: model # branch
+#      -
+#        name: Authenticate and set context
+#        uses: redhat-actions/oc-login@v1
+#        with:
+#          openshift_server_url: ${{ secrets.OPENSHIFT_SERVER_URL }}
+#          openshift_token: ${{ secrets.OPENSHIFT_TOKEN }}
+#      - name: Delete old deployments
+#        run: oc delete -f deploy-to-openshift.yaml --ignore-not-found=True
+#      -
+#        name: Deploy to openshift
+#        run: oc apply -f deploy-to-openshift.yaml
