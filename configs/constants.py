@@ -1,5 +1,6 @@
 XGBOOST_MODEL_NAME = 'xgboost_bst.ubj'
 MODEL_PATH = 'src/data/model/'
+SCHEMA_FILE_PATH = 'src/data/schema/schema.pbtxt'
 
 PREDICTION_THRESHOLD = 0.5
 RETURN_FEATURE_NAME = 'is_attributed'

@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Response, Depends
+from fastapi import FastAPI
 
 from configs.routes import DOCS_ROUTE, HEALTHCHECK_ROUTE, BASE_ROUTE
 from src.routers import healthcheck_router, predict_router
