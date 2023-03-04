@@ -2,7 +2,7 @@ from uvicorn import run
 
 
 def main():
-    # from src.app import app
+    from src.app import app
     run(
         app,
         host='0.0.0.0',
