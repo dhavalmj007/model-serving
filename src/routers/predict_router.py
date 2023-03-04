@@ -1,9 +1,10 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, UploadFile, File
+from fastapi.responses import FileResponse
 
 from configs.constants import SCHEMA_FILE_PATH
-from configs.routes import PREDICTION_ROUTE
+from configs.routes import PREDICTION_ROUTE, PREDICTION_FILE_ROUTE
 from src.models.router_models import Request, ReturnModel
-from src.usecases.predict_usecase import model_predict
+from src.usecases.predict_usecase import model_predict, model_predict_on_file
 from src.trained_models.xgboost_model import XGBoost_Model
 import tensorflow_data_validation as tfdv
 
@@ -25,3 +26,8 @@ def predict(body: Request) -> ReturnModel:
     prediction = model_predict(body, xgboost_model, schema)
 
     return prediction
+
+
+@router.post(PREDICTION_FILE_ROUTE)
+def predict_on_file(file: UploadFile = File(...)):
+    prediction = model_predict_on_file(file, xgboost_model, schema)

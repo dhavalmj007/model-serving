@@ -12,5 +12,6 @@ DTYPES = {
     'os': 'uint16',
     'channel': 'uint16',
     'click_time': 'datetime',
-    'attributed_time': 'str'
 }
+
+DATETIME_COLUMN = 'click_time'
