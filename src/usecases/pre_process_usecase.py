@@ -24,6 +24,7 @@ def pre_process_input(body: Union[Request, UploadFile], schema) -> [pd.DataFrame
     # validate data schema
     validate_data(df_input, schema)
 
-    df_predict = timeFeatures(df_input)
+    df_predict = df_input.copy()
+    df_predict = timeFeatures(df_predict)
 
     return df_predict, df_input

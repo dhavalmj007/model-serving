@@ -1,7 +1,8 @@
 from fastapi import APIRouter, UploadFile, File
-from fastapi.responses import FileResponse
+from fastapi.responses import StreamingResponse
+from io import StringIO
 
-from configs.constants import SCHEMA_FILE_PATH
+from configs.constants import SCHEMA_FILE_PATH, PREDICTION_FILE_OUT_PATH
 from configs.routes import PREDICTION_ROUTE, PREDICTION_FILE_ROUTE
 from src.models.router_models import Request, ReturnModel
 from src.usecases.predict_usecase import model_predict, model_predict_on_file
@@ -29,5 +30,13 @@ def predict(body: Request) -> ReturnModel:
 
 
 @router.post(PREDICTION_FILE_ROUTE)
-def predict_on_file(file: UploadFile = File(...)):
+def predict_on_file(file: UploadFile = File(...)) -> StreamingResponse:
     prediction = model_predict_on_file(file, xgboost_model, schema)
+
+    return StreamingResponse(
+        iter([prediction.to_csv(index=False)]),
+        media_type="text/csv",
+        headers={"Content-Disposition": f"attachment; filename=response.csv"}
+    )
+
+
