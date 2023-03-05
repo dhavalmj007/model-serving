@@ -10,8 +10,6 @@ COPY src                            src
 COPY tests                          tests
 COPY configs                        configs
 
-COPY deploy-to-openshift.yaml       deploy-to-openshift.yaml
-
 COPY runner.py                      runner.py
 
 CMD python runner.py
