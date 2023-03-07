@@ -6,13 +6,16 @@ import xgboost as xgb
 import os
 
 from configs.constants import MODEL_PATH, XGBOOST_MODEL_NAME, PREDICTION_THRESHOLD, RETURN_FEATURE_NAME
+from src.utils.logging_utils import logger
 
 
 class XGBoost_Model:
 
     def __init__(self):
         self.model = xgb.Booster()
+        logger().info('Loading Model')
         self.model.load_model(os.path.join(MODEL_PATH, XGBOOST_MODEL_NAME))
+        logger().info('Model Loaded')
 
     def predict(self, data: pd.DataFrame) -> pd.DataFrame:
 

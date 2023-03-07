@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-model
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: ml-model
+  template:
+    metadata:
+      labels:
+        app: ml-model
+    spec:
+      imagePullSecrets:
+      - name: image-registry-secret
+      containers:
+        - name: ml-model
+          image: dhavalmj007/model-serving:latest
+          resources:
+            requests:
+              memory: "2Gi"
+              cpu: "1000m"
+            limits:
+              memory: "4Gi"
+              cpu: "3000m"
+          ports:
+            - containerPort: 4010
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ml-model
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 4010
+  selector:
+    app: ml-model
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ml-model-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/app-root: /model/docs
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: ml-model
+            port:
+              number: 80
