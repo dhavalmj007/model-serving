@@ -1,15 +1,14 @@
-from typing import List, Union
+from typing import Union
 
 import pandas as pd
 from fastapi import UploadFile
 
 from configs.constants import DATETIME_COLUMN
-from src.models.router_models import Request, InputFeatures
-from src.usecases.data_validation_usecase import validate_data
+from src.models.router_models import Request
 from src.utils.common_utils import get_df_from_pydantic_model, timeFeatures
 
 
-def pre_process_input(body: Union[Request, UploadFile], schema) -> [pd.DataFrame, pd.DataFrame]:
+def pre_process_input(body: Union[Request, UploadFile]) -> [pd.DataFrame, pd.DataFrame]:
     try:
         data = body.input_data
 
@@ -20,9 +19,6 @@ def pre_process_input(body: Union[Request, UploadFile], schema) -> [pd.DataFrame
         if DATETIME_COLUMN in df_input.columns.tolist():
             df_input[DATETIME_COLUMN] = pd.to_datetime(df_input[DATETIME_COLUMN])
         body.file.close()
-
-    # validate data schema
-    validate_data(df_input, schema)
 
     df_predict = df_input.copy()
     df_predict = timeFeatures(df_predict)
