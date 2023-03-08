@@ -1,15 +1,13 @@
-from typing import List
+import os
 
 import pandas as pd
-import numpy as np
 import xgboost as xgb
-import os
 
 from configs.constants import MODEL_PATH, XGBOOST_MODEL_NAME, PREDICTION_THRESHOLD, RETURN_FEATURE_NAME
 from src.utils.logging_utils import logger
 
 
-class XGBoost_Model:
+class XGBoostModel:
 
     def __init__(self):
         self.model = xgb.Booster()
