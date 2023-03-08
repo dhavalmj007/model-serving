@@ -18,7 +18,7 @@ spec:
       - name: image-registry-secret
       containers:
         - name: ml-model
-          image: dhavalmj007/model-serving:latest
+          image: localhost:5001/model-serving:v1
           resources:
             requests:
               memory: "2Gi"
@@ -46,14 +46,12 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ml-model-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/app-root: /model/docs
 spec:
   rules:
   - http:
       paths:
-      - pathType: Prefix
-        path: /
+      - pathType: ImplementationSpecific
+        path: /model
         backend:
           service:
             name: ml-model
